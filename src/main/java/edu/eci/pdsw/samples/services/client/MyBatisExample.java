@@ -86,7 +86,7 @@ public class MyBatisExample {
         List<Item> lisIt=new ArrayList<Item>();
         int idCliente=1684264984;
         Cliente t= cm.consultarCliente(idCliente);
-        Cliente cl1=new Cliente("Cesar Eduardo Lanos", 1111111, "111111", "Cra 1 #1-1", "cesar.lanos@algo.com");
+        Cliente cl1=new Cliente("Cesar Eduardo Lanos", 121111, "111111", "Cra 1 #1-1", "cesar.lanos@algo.com");
         for(int i =0 ; i<re.size();i++){
             Cliente pre=re.get(i);
             System.out.println("El cliente es: "+pre.getNombre()+"el id"+pre.getDocumento());
@@ -94,16 +94,16 @@ public class MyBatisExample {
         System.out.println("Miremos al selecionado: "+t.getNombre()+" Identidad: "+t.getDocumento());
 
         TipoItem tip1=new TipoItem(99999212,"Pelicula sadica");
-        Item it11=new Item (tip1, 1901902321, "Las historias sadicas", "Cuentan historias sadicas espeluznantes", Date.valueOf("2016-12-12"), 2000, "Dvd", "Terror");
+        Item it11=new Item (tip1, 191902321, "Las historias sadicas", "Cuentan historias sadicas espeluznantes", Date.valueOf("2016-12-12"), 2000, "Dvd", "Terror");
         
         //registrarNuevoItemn(itm,it11);
-        //lisIt=ConsultarItems(itm);
+        lisIt=ConsultarItems(itm);
         for(int tt=0;tt<lisIt.size();tt++){
             Item op=lisIt.get(tt);
             System.out.println("Miremos el nombre del objeto"+op.getNombre()+"La descripcion"+op.getDescripcion()+"identificacion"+op.getId());
         
         }
-        //registrarNuevaOrden(cm, cl1);// Funciona pero para que no bote error por llave duplicada 
+        registrarNuevaOrden(cm, cl1);// Funciona pero para que no bote error por llave duplicada 
         // LO comente   
         sqlss.commit();
         
@@ -115,11 +115,11 @@ public class MyBatisExample {
     }
     public static void registrarNuevaOrden(ClienteMapper pmap, Cliente p){
         
-        TipoItem tip1=new TipoItem(100921921,"Pelicula medica");
-        Item it1=new Item (tip1, 123454321, "Las historias medicas", "Cuentan historias meidcas espeluznantes", Date.valueOf("2016-12-12"), 2000, "Dvd", "Terror");
+        TipoItem tip1=new TipoItem(19941921,"Pelicula medica");
+        Item it1=new Item (tip1, 123459991, "Las historias medicas", "Cuentan historias meidcas espeluznantes", Date.valueOf("2016-12-12"), 2000, "Dvd", "Terror");
         
-        ItemRentado itRen1= new ItemRentado(12, it1, Date.valueOf("2016-12-12"),Date.valueOf("2098-12-12"));
-        pmap.agregarItemRentadoACliente(190, (int)p.getDocumento(), it1.getId(), Date.valueOf("2016-12-12"), Date.valueOf("2090-12-12"));
+        ItemRentado itRen1= new ItemRentado(1245, it1, Date.valueOf("2016-12-12"),Date.valueOf("2098-12-12"));
+        pmap.agregarItemRentadoACliente(2001, (int)p.getDocumento(), it1.getId(), Date.valueOf("2016-12-12"), Date.valueOf("2090-12-12"));
      
     }
     public static void registrarNuevoItemn(ItemMapper pmap,Item p){

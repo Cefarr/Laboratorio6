@@ -57,20 +57,14 @@
                     <result property='vetado' column='vetado'/>                                          
                     <collection property='rentados' ofType='ItemRentado' resultMap='ItemRentadoResult'></collection>
                 </resultMap>
-
-                <resultMap type='ItemRentado' id="ItemRentadoResult">            
-                        <association  property="id" resultMap='edu.eci.pdsw.sampleprj.dao.mybatis.mappers.ItemMapper.ItemRentadoResult'></association> 
-                </resultMap>
-                <resultMap type='Item' id='ItemResult'>
+                <resultMap type='ItemRentado' id='ItemRentadoResult'>
                     <id property='id' column='id'/>
-                    <result property='nombre' column='nombre'/>
-                    <result property='descripcion' column='descripcion'/> 
-                    <result property='fechaLanzamiento' column='fechalanzamiento'/>
-                    <result property='tarifaxDia' column='tarifaxdia'/> 
-                    <result property='formatoRenta' column='formatorenta'/>
-                    <result property='genero' column='genero'/>  
-                    <association property="tipo" javaType="TipoItem"></association>                    
-
+                    <result property='fechainiciorenta' column='fechainiciorenta'/>
+                    <result property='fechafinrenta' column='fechafinrenta'/> 
+                    <association property="item" javaType="Item" columnPrefix='Item_'></association>      
+                </resultMap>
+                <resultMap type='Item' id="ItemResult">            
+                        <association  property="Item" resultMap='edu.eci.pdsw.sampleprj.dao.mybatis.mappers.ItemMapper.ItemResult'></association> 
                 </resultMap>
                 
                 <resultMap type='TipoItem' id='TipoItemResult'>
