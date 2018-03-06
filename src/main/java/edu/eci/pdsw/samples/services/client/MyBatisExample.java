@@ -19,10 +19,16 @@ package edu.eci.pdsw.samples.services.client;
 
 
 import edu.eci.pdsw.sampleprj.dao.mybatis.mappers.ClienteMapper;
+import edu.eci.pdsw.sampleprj.dao.mybatis.mappers.ItemMapper;
 import edu.eci.pdsw.samples.entities.Cliente;
+import edu.eci.pdsw.samples.entities.Item;
+import edu.eci.pdsw.samples.entities.ItemRentado;
+import edu.eci.pdsw.samples.entities.TipoItem;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -68,16 +74,37 @@ public class MyBatisExample {
         
         //Crear el mapper y usarlo: 
         ClienteMapper cm=sqlss.getMapper(ClienteMapper.class);
+        ItemMapper itm=sqlss.getMapper(ItemMapper.class);
         //cm...
         List<Cliente> re=cm.consultarClientes();
+        /**
+         * El cliente es: Felipe Rodriguezel id1026587456
+            El cliente es: Javier Romeroel id1026677456
+            El cliente es: Juan José Andradeel id1070017538
+            El cliente es: Santiago Lopezel id1684264984
+         */
+        List<Item> lisIt=new ArrayList<Item>();
+        int idCliente=1684264984;
+        Cliente t= cm.consultarCliente(idCliente);
+        Cliente cl1=new Cliente("Cesar Eduardo Lanos", 1111111, "111111", "Cra 1 #1-1", "cesar.lanos@algo.com");
         for(int i =0 ; i<re.size();i++){
             Cliente pre=re.get(i);
-            System.out.println("El cliente es: "+pre.getNombre());
+            System.out.println("El cliente es: "+pre.getNombre()+"el id"+pre.getDocumento());
+        }
+        System.out.println("Miremos al selecionado: "+t.getNombre()+" Identidad: "+t.getDocumento());
+
+        TipoItem tip1=new TipoItem(99999212,"Pelicula sadica");
+        Item it11=new Item (tip1, 1901902321, "Las historias sadicas", "Cuentan historias sadicas espeluznantes", Date.valueOf("2016-12-12"), 2000, "Dvd", "Terror");
         
+        //registrarNuevoItemn(itm,it11);
+        //lisIt=ConsultarItems(itm);
+        for(int tt=0;tt<lisIt.size();tt++){
+            Item op=lisIt.get(tt);
+            System.out.println("Miremos el nombre del objeto"+op.getNombre()+"La descripcion"+op.getDescripcion()+"identificacion"+op.getId());
         
         }
-        
-        
+        //registrarNuevaOrden(cm, cl1);// Funciona pero para que no bote error por llave duplicada 
+        // LO comente   
         sqlss.commit();
         
         
@@ -85,6 +112,22 @@ public class MyBatisExample {
 
         
         
+    }
+    public static void registrarNuevaOrden(ClienteMapper pmap, Cliente p){
+        
+        TipoItem tip1=new TipoItem(100921921,"Pelicula medica");
+        Item it1=new Item (tip1, 123454321, "Las historias medicas", "Cuentan historias meidcas espeluznantes", Date.valueOf("2016-12-12"), 2000, "Dvd", "Terror");
+        
+        ItemRentado itRen1= new ItemRentado(12, it1, Date.valueOf("2016-12-12"),Date.valueOf("2098-12-12"));
+        pmap.agregarItemRentadoACliente(190, (int)p.getDocumento(), it1.getId(), Date.valueOf("2016-12-12"), Date.valueOf("2090-12-12"));
+     
+    }
+    public static void registrarNuevoItemn(ItemMapper pmap,Item p){
+         pmap.insertarItem(p);
+    }
+    
+    public static List<Item> ConsultarItems(ItemMapper pmap){
+        return pmap.consultarItems();
     }
 
 

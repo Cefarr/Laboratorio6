@@ -5,7 +5,26 @@
   
 <mapper namespace="edu.eci.pdsw.sampleprj.dao.mybatis.mappers.ItemMapper">
 
-
+               <insert id ="insertarItem" >
+                            
+                    insert into VI_ITEMS (id,nombre, descripcion,fechalanzamiento,tarifaxdia,formatorenta,genero,TIPOITEM_id) VALUES (#{item.id},#{item.nombre},#{item.descripcion},#{item.fechaLanzamiento},#{item.tarifaxDia},#{item.formatoRenta},#{item.genero},#{item.tipo.id})
+                                        
+                </insert>
+               <select parameterType="map" id="consultarItems" resultMap="ItemRentadoResult">
+                            select id,CLIENTES_documento,ITEMS_id,fechainiciorenta,fechafinrenta FROM VI_ITEMRENTADO 
+                   
+                 </select>
+                 
+               <select parameterType="map" id="consultarItem" resultMap="ItemRentadoResult">
+                            select id,CLIENTES_documento,ITEMS_id,fechainiciorenta,fechafinrenta FROM VI_ITEMRENTADO 
+                    where ITEMS_id =#{itemId}
+                 </select>
+                <resultMap type='ItemRentado' id='ItemRentadoResult'>
+                    <id property='id' column='id'/>
+                    <result property='fechainiciorenta' column='fechainiciorenta'/>
+                    <result property='fechafinrenta' column='fechafinrenta'/> 
+                    <association property="item" javaType="Item" columnPrefix='Item_'></association>      
+                </resultMap>
     
     
 </mapper>

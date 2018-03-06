@@ -5,6 +5,18 @@
   
 <mapper namespace="edu.eci.pdsw.sampleprj.dao.mybatis.mappers.ClienteMapper">
 
+                <select parameterType="map" id="consultarCliente" resultMap="ClienteResult">
+                            select nombre, documento, telefono, direccion, email, vetado FROM VI_CLIENTES 
+                    where documento =#{idCli}
+                 </select>
+                <insert id ="agregarItemRentadoACliente" useGeneratedKeys="true" keyProperty="idItemRen">
+                            
+                    insert into VI_ITEMRENTADO (id,CLIENTES_documento,ITEMS_id,fechainiciorenta,fechafinrenta) VALUES (#{idItemRen},#{idCli},#{idItem},#{fecIni},#{fecFin})
+                    
+                    
+                </insert>
+    
+    
                 <select parameterType="map" id="consultarClientes" resultMap="ClienteResult">
                             select
 
@@ -45,12 +57,9 @@
                     <result property='vetado' column='vetado'/>                                          
                     <collection property='rentados' ofType='ItemRentado' resultMap='ItemRentadoResult'></collection>
                 </resultMap>
-                
-                <resultMap type='ItemRentado' id='ItemRentadoResult'>
-                    <id property='id' column='id'/>
-                    <result property='fechainiciorenta' column='fechainiciorenta'/>
-                    <result property='fechafinrenta' column='fechafinrenta'/> 
-                    <association property="item" javaType="Item" columnPrefix='Item_'></association>      
+
+                <resultMap type='ItemRentado' id="ItemRentadoResult">            
+                        <association  property="id" resultMap='edu.eci.pdsw.sampleprj.dao.mybatis.mappers.ItemMapper.ItemRentadoResult'></association> 
                 </resultMap>
                 <resultMap type='Item' id='ItemResult'>
                     <id property='id' column='id'/>
